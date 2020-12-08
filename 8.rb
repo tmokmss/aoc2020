@@ -34,7 +34,7 @@ def ends?(ops)
     executed = Set.new
     curr = 0
     acc = 0
-    while(true)
+    loop do
         break if curr >= ops.size
         break if executed.add?(curr) == nil
 
