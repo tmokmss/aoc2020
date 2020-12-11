@@ -1,79 +1,7 @@
 require 'set'
 input = File.read('input11.txt').split("\n").map(&:strip)
 
-ans = 0
-
-input.each_with_index do |line, i|
-    
-end
-
-def add_bound(input)
-    h = input.size
-    w = input[0].size
-    input.unshift('.' * w)
-    input.push('.' * w)
-    
-    (0...input.size).each do |i|
-        input[i] = ".#{input[i].strip}."
-    end
-
-    input
-end
-
-def round(seats)
-    seats = add_bound(seats)
-    h = seats.size - 2
-    w = seats[0].size - 2
-    result = []
-    changed = false
-    (1..h).each do |x|
-        resultx = ''
-        (1..w).each do |y|
-            if seats[x][y] == '.'
-                resultx += '.'
-                next
-            end
-            count = 0
-
-            (-1..1).each do |dx|
-                (-1..1).each do |dy|
-                    next if dx == 0 && dy == 0
-                    if seats[x+dx][y+dy] == '#'
-                        count +=1
-                    end
-                end
-            end
-            if count >= 4
-                resultx += 'L'
-            elsif count == 0
-                resultx += '#'
-            else
-                resultx += seats[x][y]
-            end
-            changed ||= resultx[-1] != seats[x][y]
-        end
-        result.push(resultx)
-    end
-
-    [result, changed]
-end
-
-# result = input
-# changed = true
-# count = 0
-# while(changed) do
-#     # puts result
-#     # puts '*********************************'
-#     # puts count
-#     result, changed = round(result)
-#     count += 1
-#     # sleep 0.3
-# end
-
-# ans = result.map {|r| r.count('#')}.sum
-# puts ans # part 1 answer
-
-def round2(seats)
+def round(seats, occupied_threshold, allowed_distance)
     h = seats.size
     w = seats[0].size
     result = []
@@ -90,7 +18,7 @@ def round2(seats)
             (-1..1).each do |dx|
                 (-1..1).each do |dy|
                     next if dx == 0 && dy == 0
-                    (1..100).each do |coeff|
+                    (1..allowed_distance).each do |coeff|
                         cdx = dx * coeff
                         cdy = dy * coeff
                         break if x + cdx >= h || x + cdx < 0
@@ -105,7 +33,7 @@ def round2(seats)
                     end
                 end
             end
-            if count >= 5
+            if count >= occupied_threshold
                 resultx += 'L'
             elsif count == 0
                 resultx += '#'
@@ -120,17 +48,18 @@ def round2(seats)
     [result, changed]
 end
 
-result = input
-changed = true
-count = 0
-while(changed) do
-    # sleep 0.3
-    # puts result
-    # puts '*********************************'
-    puts count
-    result, changed = round2(result)
-    count += 1
+def solve(input, occupied_threshold, allowed_distance)
+    result = input
+    changed = true
+    count = 0
+    while(changed) do
+        result, changed = round(result, occupied_threshold, allowed_distance)
+        count += 1
+    end
+    
+    result.map {|r| r.count('#')}.sum
 end
 
-ans = result.map {|r| r.count('#')}.sum
-puts ans # part 1 answer
+puts solve(input, 4, 1)
+puts solve(input, 5, 100)
+
