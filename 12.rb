@@ -53,10 +53,67 @@ input.each_with_index do |line, i|
         curdir
     end
     
-    puts "#{dir} #{num}, #{newdir} #{curx},#{cury},#{curdir}"
+    # puts "#{dir} #{num}, #{newdir} #{curx},#{cury},#{curdir}"
     next if dir =='R' || dir == 'L'
     curx += newdir[0] * num
     cury += newdir[1] * num
 end
 
 puts (curx.abs + cury.abs)
+
+def rot902(curr, reverse)
+    x = curr[0]
+    y = curr[1]
+    res = []
+    coeff = reverse ? -1 : 1
+    if x * y > 0
+        if x > 0
+            res = [-y * coeff, x * coeff]
+        else
+            res = [-y * coeff, x * coeff]
+        end
+    else
+        if x > 0
+            res = [-y * coeff, x * coeff]
+        else
+            res = [-y * coeff, x * coeff]
+        end
+    end
+end
+
+wp = [10, 1]
+curr = [0, 0]
+
+input.each_with_index do |line, i|
+    dir = line[0]
+    num = line[1..].to_i
+    case dir
+    when 'N'
+        wp[1] += num
+    when 'S'
+        wp[1] -= num
+    when 'E'
+        wp[0] += num
+    when 'W'
+        wp[0] -= num
+    when 'L'
+        cnt =  num / 90
+        (0...cnt).each do |_|
+            wp = rot902(wp, false)
+        end
+    when 'R'
+        cnt =  num / 90
+        (0...cnt).each do |_|
+            wp = rot902(wp, true)
+        end
+    when 'F'
+        (0...num).each do |_|
+            curr[0] += wp[0]
+            curr[1] += wp[1]
+        end
+    end
+    
+    puts "#{dir} #{num}, #{curr} #{wp}"
+end
+
+puts (curr[0].abs + curr[1].abs)
