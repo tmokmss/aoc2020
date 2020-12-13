@@ -1,4 +1,4 @@
-input = File.read('input10.txt').split("\n").map(&:to_i)
+input = File.read('input/10.txt').split("\n").map(&:to_i)
 input.push(0)
 input.push(input.max+3)
 input.sort!

@@ -1,4 +1,4 @@
-input = File.read('input4.txt').split("\n")
+input = File.read('input/4.txt').split("\n")
 
 FIELDS = [
 'byr',

@@ -1,4 +1,4 @@
-input = File.read('input6.txt').split("\n")
+input = File.read('input/6.txt').split("\n")
 
 answered = []
 input.unshift('')

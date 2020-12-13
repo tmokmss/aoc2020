@@ -1,4 +1,4 @@
-input = File.read('input5.txt').split("\n")
+input = File.read('input/5.txt').split("\n")
 
 seats = input.map {|i| i.gsub(/B|R/, '1').gsub(/F|L/, '0')}.map {|i| i.to_i(2)}.sort!
 puts(seats.last)

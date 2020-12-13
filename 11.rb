@@ -1,5 +1,5 @@
 require 'set'
-input = File.read('input11.txt').split("\n").map(&:strip)
+input = File.read('input/11.txt').split("\n").map(&:strip)
 
 def round(seats, occupied_threshold, allowed_distance)
     h = seats.size

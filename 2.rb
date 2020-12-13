@@ -1,4 +1,4 @@
-input = File.read('input2.txt').split("\n")
+input = File.read('input/2.txt').split("\n")
 
 def is_valid(str, min, max, char)
     c = str.count(char)

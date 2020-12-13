@@ -1,5 +1,5 @@
 require 'set'
-input = File.read('input8.txt').split("\n")
+input = File.read('input/8.txt').split("\n")
 
 class Op
     attr_reader :op, :val

@@ -1,4 +1,4 @@
-input = File.read('input3.txt').split("\n")
+input = File.read('input/3.txt').split("\n")
 
 def count_trees(lines, slopex, slopey)
     w = lines[0].size

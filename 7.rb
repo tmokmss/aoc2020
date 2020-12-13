@@ -1,6 +1,6 @@
 require 'set'
 
-input = File.read('input7.txt').split("\n")
+input = File.read('input/7.txt').split("\n")
 
 bags = {}
 input.map {|i| i.gsub(/\,|\./, '')}.each do |line|

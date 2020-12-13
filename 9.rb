@@ -1,5 +1,5 @@
 require 'set'
-input = File.read('input9.txt').split("\n").map(&:to_i)
+input = File.read('input/9.txt').split("\n").map(&:to_i)
 
 
 def search_pair(num, gen)
