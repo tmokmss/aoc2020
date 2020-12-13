@@ -1,5 +1,14 @@
 require 'set'
-input = File.read('input12.txt').split("\n")
+
+if ARGV.length < 1
+    input_path = 'input/12.txt'
+else
+    input_path = 'sample/12.txt'
+end
+
+puts "Load input from #{input_path}"
+
+input = File.read(input_path).split("\n").map(&:strip)
 
 n = input.size
 ans = 0
