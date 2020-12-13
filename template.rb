@@ -1,5 +1,11 @@
 require 'set'
-input = File.read('input.txt').split("\n")
+if ARGV.length < 1
+    input_path = 'input/DAY.txt'
+else
+    input_path = 'sample/DAY.txt'
+end
+
+input = File.read(input_path).split("\n").map(&:strip)
 
 n = input.size
 ans = 0

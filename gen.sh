@@ -4,6 +4,7 @@ if [ -z "$1" ];then
     exit 1
 fi
 
-touch input$1.txt
+touch input/$1.txt
+touch sample/$1.txt
 cp template.rb $1.rb
-sed -i "s/input.txt/input${1}.txt/" $1.rb
+sed -i "s/DAY/${1}/" $1.rb
