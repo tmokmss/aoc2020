@@ -1,9 +1,12 @@
 require 'set'
+
 if ARGV.length < 1
     input_path = 'input/DAY.txt'
 else
     input_path = 'sample/DAY.txt'
 end
+
+puts "Load input from #{input_path}"
 
 input = File.read(input_path).split("\n").map(&:strip)
 
