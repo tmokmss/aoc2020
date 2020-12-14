@@ -1,5 +1,3 @@
-require "set"
-
 if ARGV.length < 1
   input_path = "input/14.txt"
 else
