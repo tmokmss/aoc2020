@@ -71,22 +71,12 @@ end
 def list_all_possible_values(val2)
   # val2 is string like 000000000000000000000000000000X1101X
   xpos = search_char(val2, "X")
-  # puts val2
-  # puts "xpos #{xpos}"
   xnum = xpos.size
-  (0...2 ** xnum).map do |k|
-    val2m = val2
-    tmp = k
-    (0...xnum).each do |i|
-      if tmp % 2 == 1
-        val2m[xpos[i]] = "1"
-      else
-        val2m[xpos[i]] = "0"
-      end
-      tmp /= 2
+  [0, 1].repeated_permutation(xnum).map do |arr|
+    arr.each_with_index do |a, i|
+      val2[xpos[i]] = a.to_s
     end
-    # puts val2m
-    val2m.to_i(2)
+    val2.to_i(2)
   end
 end
 
@@ -109,6 +99,6 @@ end
 
 puts(memory.values.sum)
 #puts apply_mask2("000000000000000000000000000000X1001X", 42)
-# # puts search_char("000000000000000000000000000000X1001X", "X")
-# aa= apply_mask2("000000000000000000000000000000X1001X", 42)
-# puts list_all_possible_values(aa)
+# puts search_char("000000000000000000000000000000X1001X", "X")
+# aa = apply_mask2("000000000000000000000000000000X1001X", 42)
+# p list_all_possible_values(aa)
