@@ -62,9 +62,9 @@ def list_all_possible_values(val2)
   # val2 is string like 000000000000000000000000000000X1101X
   xpos = search_char(val2, "X")
   xnum = xpos.size
-  [0, 1].repeated_permutation(xnum).map do |arr|
+  ["0", "1"].repeated_permutation(xnum).map do |arr|
     arr.each_with_index do |a, i|
-      val2[xpos[i]] = a.to_s
+      val2[xpos[i]] = a
     end
     val2.to_i(2)
   end
