@@ -12,15 +12,12 @@ input = File.read(input_path).split("\n").map(&:strip)
 
 def apply_mask(mask, val)
   val2 = val.to_s(2).chars.reverse
-  masked = []
-  mask.chars.reverse.each_with_index do |c, i|
-    masked.push(c)
-    if c == "X"
-      if i < val2.size
-        masked[i] = val2[i]
-      else
-        masked[i] = "0"
-      end
+  masked = mask.chars.reverse.map.with_index do |c, i|
+    next c if c != "X"
+    if i < val2.size
+      val2[i]
+    else
+      "0"
     end
   end
   # puts "#{val2} #{masked}"
@@ -45,15 +42,12 @@ puts(memory.values.sum)
 
 def apply_mask2(mask, val)
   val2 = val.to_s(2).chars.reverse
-  masked = []
-  mask.chars.reverse.each_with_index do |c, i|
-    masked.push(c)
-    if c == "0"
-      if i < val2.size
-        masked[i] = val2[i]
-      else
-        masked[i] = "0"
-      end
+  masked = mask.chars.reverse.map.with_index do |c, i|
+    next c if c != "0"
+    if i < val2.size
+      val2[i]
+    else
+      "0"
     end
   end
 
@@ -61,11 +55,9 @@ def apply_mask2(mask, val)
 end
 
 def search_char(str, char)
-  res = []
-  str.chars.each_with_index do |c, i|
-    res.push(i) if c == char
+  str.chars.filter_map.with_index do |c, i|
+    i if c == char
   end
-  res
 end
 
 def list_all_possible_values(val2)
