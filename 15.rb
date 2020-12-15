@@ -21,15 +21,13 @@ last = input.last
 (input.size...30000000).each do |i|
   if before.has_key?(last)
     bs = before[last]
-    last = bs[bs.size - 1] - bs[bs.size - 2]
+    last = bs[-1] - bs[0]
+    bs.shift if bs.size > 1
   else
-    before[0].push(i)
     last = 0
   end
   before[last] = [] unless before.has_key?(last)
   before[last].push(i)
-  # p [last, i]
 end
 
-# p before
 puts(last)
