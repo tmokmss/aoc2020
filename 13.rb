@@ -27,10 +27,6 @@ end
 
 puts ((min - time) * ans)
 
-def mod(a, m)
-  (a % m + m) % m
-end
-
 def extgcd_h(a, b, values)
   d = a
 
@@ -52,18 +48,18 @@ end
 def chinese(b, m)
   r = 0
   mM = 1
-  (0...b.size).each do |i|
+  b.zip(m) do |bi, mi|
     val = {}
-    d = extgcd_h(mM, m[i], val)
+    d = extgcd_h(mM, mi, val)
     p = val[:x]
     q = val[:y]
-    return [0, -1] if (b[i] - r) % d != 0
-    tmp = (b[i] - r) / d * p % (m[i] / d)
+    return [0, -1] if (bi - r) % d != 0
+    tmp = (bi - r) / d * p % (mi / d)
     r += mM * tmp
-    mM *= m[i] / d
+    mM *= mi / d
   end
 
-  [mod(r, mM), mM]
+  [r % mM, mM]
 end
 
 sum = 0
