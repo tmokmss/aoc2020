@@ -45,12 +45,9 @@ words.each do |word, val|
   end
 end
 
-ans = 0
-nearby.each do |t|
-  t.each do |i|
-    ans += i unless valid.has_key?(i)
-  end
-end
+ans = nearby.flatten.reject do |i|
+  valid.has_key?(i)
+end.sum
 
 p ans
 
@@ -60,15 +57,14 @@ valid_tickets = nearby.select do |t|
   end
 end
 
-candidates = []
 # p valid
-(0...valid_tickets.first.size).each do |i|
+candidates = (0...valid_tickets.first.size).map do |i|
   cand = valid[valid_tickets.first[i]]
   valid_tickets[1..].each do |t|
     cand = cand & valid[t[i]]
     break if cand.size == 1
   end
-  candidates.push(cand)
+  cand
 end
 
 ans = Array.new(candidates.size)
@@ -85,10 +81,8 @@ loop do
 end
 
 p ans
-mul = 1
-ans.each_with_index do |a, i|
-  mul *= (mine[i]) if a.start_with?("departure")
-  p [a, i, mine[i]]
-end
+mul = ans.map.with_index do |a, i|
+  a.start_with?("departure") ? mine[i] : 1
+end.inject(&:*)
 
 p mul
